@@ -12,22 +12,27 @@ class LoginAuth
     public function login(Request $request){
 
         
-        $credentials = $request->validate([
+   $credentials = $request->validate([
             'email' => ['required', 'email'],
             'password' => ['required'],
         ]);
- 
-        if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
-            
-            $user = Auth::user();
-            
-      
-            return redirect()->intended('dashboard')->with('user_data', $user);
-        }
- 
+
+
+       $user = User::where('email', $credentials['email'])->first();
+        
+
+        if (!$user || !Hash::check($credentials['password'], $user->password)) {
         return back()->withErrors([
             'email' => 'The provided credentials do not match our records.',
         ])->onlyInput('email');
+    }
+            
+     
+        Auth::login($user, $remember = true);
+        
+        
+        return redirect()->intended('dashboard')->with('user_data', Auth::user());
+    
+    
     }
 }

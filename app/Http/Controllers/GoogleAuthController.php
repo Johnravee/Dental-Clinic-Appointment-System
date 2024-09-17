@@ -37,7 +37,7 @@ class GoogleAuthController
             
 
         
-            Auth::login($user);
+            Auth::login($user, $remember = true);
             
             $user_data = [
                 'name' => $user->name,
@@ -45,7 +45,13 @@ class GoogleAuthController
                 'google_id' => $user->google_id
             ];
 
- 
+               // Check if the user's email is verified
+            if (!$user->hasVerifiedEmail()) {
+                // Send the email verification notification
+                $user->sendEmailVerificationNotification();
+            }
+        
+            
             return redirect()->intended('dashboard')->with('user_data', $user_data);
 
         } catch (Exception $e) {

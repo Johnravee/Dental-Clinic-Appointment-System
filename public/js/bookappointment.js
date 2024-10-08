@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
             start: today 
         },
 
-        dayCellDidMount: function(info) {
+       dayCellDidMount: function(info) {
             const clickedDate = new Date(info.date);
             
             // Check if the day is in the past
@@ -21,16 +21,33 @@ document.addEventListener('DOMContentLoaded', function() {
                 info.el.classList.add('past-date'); 
                 info.el.style.pointerEvents = 'none'; 
             } 
+            
+            // Disable Sundays
+            if (clickedDate.getDay() === 0) {
+                info.el.style.backgroundColor = 'red';
+                info.el.style.pointerEvents = 'none'; 
+            }   
         },
 
         dateClick: function(info) {
             const clickedDate = new Date(info.dateStr);
             
-            // Only allow clicks for non-past dates
-            if (clickedDate >= today) {
+            // Only allow clicks for non-past dates and non-Sundays
+            if (clickedDate >= today && clickedDate.getDay() !== 0) {
                 alert('Date: ' + info.dateStr);
             }
         },
+
+        events: async function(fetchInfo, successCallback, failureCallback) {
+            try {
+                const response = await fetch('/api/scheduled-dates');
+                const events = await response.json();
+                successCallback(events);
+            } catch (error) {
+                failureCallback(error);
+            }
+        }
+
     });
     
     calendar.render();

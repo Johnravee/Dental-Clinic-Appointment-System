@@ -57,10 +57,10 @@
 
             <div class="content">
                 <div class="btns">
-                    <a href="userAppointmentForm.php">
+                    <a href="{{ route('book') }}">
                         <button id="startBtn">
                             <i class="bi bi-plus"></i>
-                            <span>New appointment</span>
+                            <span>Book appointment</span>
                         </button>
                     </a>
 
@@ -102,7 +102,7 @@
                     </div>
 
                     <div class="appoinmentBtn">
-                        <a href="userAppointmentForm.php">
+                        <a href="{{ route('book') }}">
                             <button>
                                 Schedule Your Visit
                             </button>

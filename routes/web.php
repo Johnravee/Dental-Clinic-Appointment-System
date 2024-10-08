@@ -7,11 +7,9 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
-use App\Http\Middleware\CheckUser;
 use App\Http\Middleware\RedirectIfVerified;
-use App\Http\Middleware\VerifyEmail;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
-use App\Models\User;
+
 
 
 

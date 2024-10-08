@@ -7,18 +7,14 @@ html, body {
 
 #calendar {
   padding: 2rem;
-  width: auto;
+  width: 50%;
   margin: 40px auto;
 }
 
 .past-date {
-  background-color: red !important; /* Past dates red */
-  color: white !important; /* Text color for past dates */
+  background-color: #e43434 !important; 
+  color: white !important; 
 }
 
-.present-date {
-  background-color: green !important; /* Today's date green */
-  color: white !important; /* Text color for today's date */
-}
 
 

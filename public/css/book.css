@@ -1,0 +1,24 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
+  font-size: 14px;
+}
+
+#calendar {
+  padding: 2rem;
+  width: auto;
+  margin: 40px auto;
+}
+
+.past-date {
+  background-color: red !important; /* Past dates red */
+  color: white !important; /* Text color for past dates */
+}
+
+.present-date {
+  background-color: green !important; /* Today's date green */
+  color: white !important; /* Text color for today's date */
+}
+
+

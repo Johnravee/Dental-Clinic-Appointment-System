@@ -26,7 +26,7 @@
             </div>
 
             <div class="navBtn">
-                <a href="userProfile.php">
+                <a href="{{route('profile')}}">
                     <button type="button">
                         <i class="bi bi-person-lines-fill"></i>
                         <span>My profile</span>
@@ -40,7 +40,7 @@
                     </button>
                 </a>
 
-                <a href="logOut.php">
+                <a href="{{route('logout')}}">
                     <button type="button">
                         <i class="bi bi-box-arrow-right"></i>
                         <span>Logout</span>

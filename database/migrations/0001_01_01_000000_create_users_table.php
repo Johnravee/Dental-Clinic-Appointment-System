@@ -16,6 +16,9 @@ return new class extends Migration
             $table->binary('profile_image')->nullable();
             $table->string('name');
             $table->string('email')->unique();
+            $table->string('contact')->nullable();
+            $table->string('address')->nullable();
+            $table->string('gender')->nullable();
             $table->string('password')->nullable();
             $table->string('google_id')->nullable();
             $table->rememberToken();

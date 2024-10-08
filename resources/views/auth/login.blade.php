@@ -57,8 +57,17 @@
                             Login with Google
                         </button>
                     </div>
+                </a> 
+
+                <a class="underline" href="{{route('google-auth')}}">
+                   <div class="flex items-center justify-center mt-4">
+                        Don't have an account? Click here!
+                    </div>
                 </a>
+                
+                
             </form>
+            
         </div>
     </div>
 </body>

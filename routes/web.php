@@ -31,10 +31,14 @@ Route::get('/dashboard', function () {
         return redirect()->route('verification.notice');
     }
     return view('dash.dashboard', ['user_data' => Auth::user()]);
-        
-
-   
 })->middleware(['auth'])->name('dashboard');
+
+
+
+
+Route::get('/profile', function (){
+   return view('profile.profile'); 
+});
 
 
 Route::get('/auth/redirect', [GoogleAuthController::class, 'redirect'])->name('google-auth');

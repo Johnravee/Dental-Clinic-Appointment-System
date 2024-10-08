@@ -20,6 +20,7 @@ class GoogleAuthController
         try {
             $googleUser = Socialite::driver('google')->user();
             
+            
          
             $user = User::where('google_id', $googleUser->id)
                         ->orWhere('email', $googleUser->email)
@@ -33,6 +34,8 @@ class GoogleAuthController
                     'google_id' => $googleUser->id,
                 ]);
             }
+            
+
 
             
 

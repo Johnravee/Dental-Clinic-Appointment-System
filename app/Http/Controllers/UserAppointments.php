@@ -24,7 +24,7 @@ class UserAppointments
 
     public function create(Request $request){
         $appointment = Userappointment::create($request->all());
-        
+        dd($appointment);
     }
 
 }

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create("users_appointments :", function (Blueprint $table) {
             $table->bigIncrements("id");
-            $table->unsignedBigInteger("user_id");
+            $table->unsignedBigInteger("user_id")->references('id')->on('users')->cascadeOnDelete();
             $table->string("title");
             $table->string("concern");
             $table->dateTime("start");

@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', () => {
     const calendarEl = document.getElementById('calendar');
     const today = new Date();
     
@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Disable Sundays
             if (clickedDate.getDay() === 0) {
-                info.el.style.backgroundColor = 'red';
+                info.el.style.backgroundColor = '#ee6d6d';
                 info.el.style.pointerEvents = 'none'; 
             }   
         },

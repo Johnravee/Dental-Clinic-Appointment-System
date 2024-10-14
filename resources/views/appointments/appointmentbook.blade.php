@@ -39,19 +39,34 @@
       <div class="calendar-list">
         <div id='calendar'></div>
       </div>
+<div class="instructions">
+  <div class="instruction-content">
+    <h2 class="instructions-title">INSTRUCTIONS</h2>
+    <ul>
+      <li>
+        <span style="display:inline-block; width:20px; height:20px; background-color:#DC2C2B; margin-right:5px;"></span>
+         Indicates Past
+      </li>
+      <li>
+        <span style="display:inline-block; width:20px; height:20px; background-color:#EA7227; margin-right:5px;"></span>
+         Indicates Closed
+      </li>
+      <li>
+        <span style="display:inline-block; width:20px; height:20px; background-color:#FEFADF; margin-right:5px;"></span>
+       Indicates  Present
+      </li>
+      <li>
+        <span style="display:inline-block; width:20px; height:20px; background-color:white; margin-right:5px; border:1px solid #ccc;"></span>
+         Indicates Available
+      </li>
+    </ul>
+  </div>
+</div>
 
-      <div class="instructions">
-        <div class="instruction-content">
-          <h2 class="instructions-title">INSTRUCTIONS</h2>
-            <ul>
-              <li>Lorem ipsum dolor sit amet.</li>
-              <li>Lorem ipsum dolor sit amet.</li>
-              <li>Lorem ipsum dolor sit amet.</li>
-              <li>Lorem ipsum dolor sit amet.</li>
-            </ul>
-        </div>
 
-        <div class="appoinment-list">
+
+        <div class="right-side">
+          <div class="appoinment-list">
           <h2 class="appointment-title">SCHEDULED</h2>
             <table class="appoinments-table">
               <thead>
@@ -83,7 +98,7 @@
     <div class="book-modal">
     <div class="book-modal-con">
         <h2 class="modal-title">Book Your Appointment</h2>
-        <form action="{{route('create-appointment')}}" class="book-form" method="POST">
+        <form action="" class="book-form" method="POST">
             <input type="hidden" name="user_id" />
             <div class="form-group">
                 <label for="start-date">Date:</label>
@@ -91,13 +106,14 @@
             </div>
             <div class="form-group">
                 <label for="concern">Your Concern:</label>
-                <textarea name="concern" cols="30" rows="5" class="form-control" id="concern"></textarea>
+                <textarea name="concern" cols="30" rows="5" class="form-control" id="concern" style="resize: none"></textarea>
             </div>
             <button type="submit" class="submit-button">Submit</button>
         </form>
         <button class="close-modal" onclick="toggler(false)">Close</button>
     </div>
 </div>
+        </div>
 
   </body>
 </html>

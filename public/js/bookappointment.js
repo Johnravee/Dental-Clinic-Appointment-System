@@ -65,7 +65,7 @@
 function toggler(state) {
     if(state){
           document.querySelector('.book-modal').style.display = 'flex';
-        }else{
+        }else{ 
         document.querySelector('.book-modal').style.display = 'none'; 
           startDate.value = null;
           concern.value = null;

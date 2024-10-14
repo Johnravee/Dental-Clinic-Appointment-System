@@ -7,14 +7,16 @@
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js'></script>
     <link rel="stylesheet" href="{{asset('css/book.css')}}">
     <script defer src="{{asset('js/bookappointment.js')}}"></script>
-
-    </script>
   </head>
   <body>
-    {{-- <div id='calendar'></div> --}}
+    <header class="header">
+      <button class="back-button" onclick="window.history.back();">
+        <i class="bi bi-arrow-left"></i> Back
+      </button>
+      <h1 class="header-title">Book Appointment</h1>
+    </header>
 
     <div class="content">
-        
       <div class="holidays-list">
           <h2 class="holidays-title">HOLIDAYS</h2>
           <ul>
@@ -32,53 +34,70 @@
             <li>Lorem ipsum dolor sit amet.</li>
             <li>Lorem ipsum dolor sit amet.</li>
           </ul>
+      </div>
+
+      <div class="calendar-list">
+        <div id='calendar'></div>
+      </div>
+
+      <div class="instructions">
+        <div class="instruction-content">
+          <h2 class="instructions-title">INSTRUCTIONS</h2>
+            <ul>
+              <li>Lorem ipsum dolor sit amet.</li>
+              <li>Lorem ipsum dolor sit amet.</li>
+              <li>Lorem ipsum dolor sit amet.</li>
+              <li>Lorem ipsum dolor sit amet.</li>
+            </ul>
         </div>
 
-        <div class="calendar-list">
-          <div id='calendar'></div>
-        </div>
-
-        <div class="instructions">
-          <div class="instruction-content">
-            <h2 class="instructions-title">INSTRUCTIONS</h2>
-              <ul>
-                <li>Lorem ipsum dolor sit amet.</li>
-                <li>Lorem ipsum dolor sit amet.</li>
-                <li>Lorem ipsum dolor sit amet.</li>
-                <li>Lorem ipsum dolor sit amet.</li>
-              </ul>
-          </div>
-
-          <div class="appoinment-list">
-            <h2 class="appointment-title">SCHEDULED</h2>
-              <table class="appoinments-table">
-                <thead>
-                  <tr>
+        <div class="appoinment-list">
+          <h2 class="appointment-title">SCHEDULED</h2>
+            <table class="appoinments-table">
+              <thead>
+                <tr>
                   <th>Date</th>
                   <th>Action</th>
                 </tr>
-                </thead>
-                <tbody>
-                  <tr>
+              </thead>
+              <tbody>
+                <tr>
                   <td>Alfreds Futterkiste</td>
                   <td><button><i class="bi bi-pencil-square"></i></button></td>
-               
                 </tr>
                 <tr>
                   <td>Berglunds snabbköp</td>
                   <td><button><i class="bi bi-pencil-square"></i></button></td>
-                
                 </tr>
                 <tr>
                   <td>Centro comercial Moctezuma</td>
                   <td><button><i class="bi bi-pencil-square"></i></button></td>
                 </tr>
-                </tbody>
-              </table>
-          </div>
+              </tbody>
+            </table>
         </div>
-        
-
+      </div>
     </div>
+
+
+    <div class="book-modal">
+    <div class="book-modal-con">
+        <h2 class="modal-title">Book Your Appointment</h2>
+        <form action="{{route('create-appointment')}}" class="book-form" method="POST">
+            <input type="hidden" name="user_id" />
+            <div class="form-group">
+                <label for="start-date">Date:</label>
+                <input type="text" name="start-date" readonly class="form-control" id="start-date">
+            </div>
+            <div class="form-group">
+                <label for="concern">Your Concern:</label>
+                <textarea name="concern" cols="30" rows="5" class="form-control" id="concern"></textarea>
+            </div>
+            <button type="submit" class="submit-button">Submit</button>
+        </form>
+        <button class="close-modal" onclick="toggler(false)">Close</button>
+    </div>
+</div>
+
   </body>
 </html>

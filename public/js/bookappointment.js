@@ -1,4 +1,5 @@
-document.addEventListener('DOMContentLoaded', () => {
+    const startDate = document.querySelector('#start-date');
+    const concern = document.querySelector('concern');
     const calendarEl = document.getElementById('calendar');
     const today = new Date();
     
@@ -13,7 +14,8 @@ document.addEventListener('DOMContentLoaded', () => {
             start: today 
         },
 
-       dayCellDidMount: function(info) {
+       
+       dayCellDidMount: (info) => {
             const clickedDate = new Date(info.date);
             
             // Check if the day is in the past
@@ -24,17 +26,20 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // Disable Sundays
             if (clickedDate.getDay() === 0) {
-                info.el.style.backgroundColor = '#ee6d6d';
+                info.el.style.backgroundColor = '#f97316';
                 info.el.style.pointerEvents = 'none'; 
-            }   
+            }    
         },
+        
+       
 
-        dateClick: function(info) {
+        dateClick: (info) => {
             const clickedDate = new Date(info.dateStr);
             
             // Only allow clicks for non-past dates and non-Sundays
             if (clickedDate >= today && clickedDate.getDay() !== 0) {
-                alert('Date: ' + info.dateStr);
+                startDate.value = info.dateStr;
+                toggler(true)
             }
         },
 
@@ -51,4 +56,19 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     
     calendar.render();
-});
+
+
+
+
+
+
+function toggler(state) {
+    if(state){
+          document.querySelector('.book-modal').style.display = 'flex';
+        }else{
+        document.querySelector('.book-modal').style.display = 'none'; 
+          startDate.value = null;
+          concern.value = null;
+    }
+
+}

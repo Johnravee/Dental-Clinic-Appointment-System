@@ -98,8 +98,9 @@
     <div class="book-modal">
     <div class="book-modal-con">
         <h2 class="modal-title">Book Your Appointment</h2>
-        <form action="" class="book-form" method="POST">
-            <input type="hidden" name="user_id" />
+        <form action="{{route('createappointment')}}" class="book-form" method="POST">
+
+            <input type="hidden" name="user_id" value="{{Auth::id()}}"/>
             <div class="form-group">
                 <label for="start-date">Date:</label>
                 <input type="text" name="start-date" readonly class="form-control" id="start-date">
@@ -113,7 +114,9 @@
         <button class="close-modal" onclick="toggler(false)">Close</button>
     </div>
 </div>
-        </div>
-
+</div>
   </body>
+
+
+  
 </html>

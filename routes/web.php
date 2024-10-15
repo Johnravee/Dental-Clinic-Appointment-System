@@ -1,9 +1,12 @@
 <?php
 
+use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\LoginAuth;
 use App\Http\Controllers\RegistrationController;
+use App\Http\Controllers\UserAppointments;
 use App\Http\Controllers\UserController;
+use App\Http\Middleware\CheckUser;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
@@ -19,12 +22,12 @@ Route::middleware('auth')->group(function () {
     
     Route::get('/login', function () {
          return view('auth.login');
-    })->name('login');
+    })->name('login')->middleware(CheckUser::class);
 
 
     Route::get('/registration', function (){
         return view('auth.register');
-    })->name('registration');
+    })->name('registration')->middleware(CheckUser::class);;
 
 
     Route::get('/dashboard', function () {
@@ -97,3 +100,10 @@ Route::post('/email/verification-notification', function (Request $request) {
 Route::post('/r/login', [LoginAuth::class, 'login'])->name('formlogin');
 
 Route::post('/r/register', [RegistrationController::class, 'registrationValidator'])->name('register');
+
+
+
+
+
+Route::post('/api/createappointment', [AppointmentController::class, 'create'])->name('createappointment');
+Route::get('api/show-slot/{date}', action: [AppointmentController::class, 'showSlots']);

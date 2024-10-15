@@ -10,5 +10,6 @@ class Userappointment extends Model
 {
     use HasFactory;
 
-    protected $table = 'appointments';
+    protected $table = 'users_appointments';
+
 }

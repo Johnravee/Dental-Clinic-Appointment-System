@@ -16,7 +16,8 @@ return new class extends Migration
             $table->unsignedBigInteger("user_id")->references('id')->on('users')->cascadeOnDelete();
             $table->string("title");
             $table->string("concern");
-            $table->dateTime("start");
+            $table->string("start");
+            $table->string('status');
              $table->timestamps();
         });
               
@@ -27,6 +28,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+       Schema::dropIfExists('users_appointments');
+       
     }
 };

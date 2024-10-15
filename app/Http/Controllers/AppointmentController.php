@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Userappointment;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class AppointmentController
 {
@@ -26,39 +27,45 @@ class AppointmentController
 
 
 
-//!PAGE EXPIRED ERROR PAKI FIX NALANG FOR APPOINTMENT INSERTIONS
+
 public function create(Request $request)
 {
+
+    // dd($request->all());
     // Validate the incoming request
-    $request->validate([
+    $validator = Validator::make($request->all(), [
         'user_id' => 'required|exists:users,id', // Ensure user exists
-        'start-date' => 'required|date',
-        'concern' => 'required|string|max:255',
+        'start-date' => 'required|string|max:50',
+        'concern' => 'required|string|max:50',
     ]);
+
+    if($validator->fails()){
+         return back()->withErrors($validator);
+    }
+
+
 
     // Create a new appointment
     $appointment = Userappointment::create([
         'user_id' => $request->user_id,
-        'start_date' => $request->input('start-date'), // Adjust to match your database column name
+        'title'=> 'Appointment', 
+        'start' => $request->input('start-date'), 
         'concern' => $request->concern,
         'status' => 'Pending'
     ]);
 
-    // Return a success response
-    return response()->json([
-        'success' => true,
-        'message' => 'Appointment created successfully.',
-        'data' => $appointment,
-    ], 201); // 201 Created
+    return redirect()->route('book')->with('success', 'Appointment created successfully.');
 }
 
 
-// Create the appointment
-// $appointment = Userappointment::create($request->all());
-    public function showSlots($date){
+
+//*ito nalang fetching ng slots for specific date
+    public function showSlots(){
     
     try{
-        $count = Userappointment::whereDate('start', $date)->count();
+         $count = Userappointment::selectRaw('COUNT(*) as count, start')
+        ->groupBy('start')
+        ->get();
 
         return response()->json($count);
     }catch (Exception $e){

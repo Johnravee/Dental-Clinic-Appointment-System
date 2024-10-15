@@ -15,9 +15,13 @@
                   start: today 
               },
 
+              
+
             
             dayCellDidMount: (info) => {
                   const clickedDate = new Date(info.date);
+
+                  
                   
                   // Check if the day is in the past
                   if (clickedDate < today) {
@@ -29,6 +33,7 @@
                   if (clickedDate.getDay() === 0) {
                       info.el.style.backgroundColor = '#f97316';
                       info.el.style.pointerEvents = 'none'; 
+                      
                   }  
 
                 
@@ -37,36 +42,44 @@
             
 
              dateClick: async (info) => { // Marked as async
-    const clickedDate = new Date(info.dateStr);
+            const clickedDate = new Date(info.dateStr);
 
-    // Only allow clicks for non-past dates and non-Sundays
-    if (clickedDate >= today && clickedDate.getDay() !== 0) {
-        startDate.value = info.dateStr;
-        toggler(true);
+            // Only allow clicks for non-past dates and non-Sundays
+            if (clickedDate >= today && clickedDate.getDay() !== 0) {
+                startDate.value = info.dateStr;
+                toggler(true);
 
-        try {
-            // Fetch available slots from the API
-            const response = await fetch(`api/show-slot/${encodeURIComponent(info.dateStr)}`);
-            const data = await response.json();
+                try {
+                    // Fetch available slots from the API
+                    const response = await fetch(`api/show-slot/${encodeURIComponent(info.dateStr)}`);
+                    const data = await response.json();
 
-            // Display available slots to the user
-            if (data.availableSlots > 0) {
-                alert(`Available slots: ${data.availableSlots}`);
-            } else {
-                alert('No available slots for this date.');
-            }
-        } catch (error) {
-            console.error('Error fetching available slots:', error);
-        }
+                    // Display available slots to the user
+                    if (data.availableSlots > 0) {
+                        alert(`Available slots: ${data.availableSlots}`);
+                    } else {
+                        alert('No available slots for this date.');
+                    }
+                } catch (error) {
+                    console.error('Error fetching available slots:', error);
+                }
     }
 },
 
-
+//! Yung slot pa yah paki isipan ng logic 
               events: async (fetchInfo, successCallback, failureCallback) => {
                   try {
-                      const response = await fetch('/api/scheduled-dates');
+                      const response = await fetch('/api/show-slot');
                       const events = await response.json();
-                      successCallback(events);
+                            // Map the events to the correct structure
+                const mappedEvents = events.map(event => ({
+                 
+
+                    title: `${100 - event.count} slots available`, // Use the correct syntax for objects
+                    start: event.start // Assuming event.start holds the date
+                }));
+                      
+                      successCallback(mappedEvents);
                   } catch (error) {
                       failureCallback(error);
                   }

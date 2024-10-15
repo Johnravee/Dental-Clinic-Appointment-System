@@ -99,7 +99,7 @@
     <div class="book-modal-con">
         <h2 class="modal-title">Book Your Appointment</h2>
         <form action="{{route('createappointment')}}" class="book-form" method="POST">
-
+          @csrf
             <input type="hidden" name="user_id" value="{{Auth::id()}}"/>
             <div class="form-group">
                 <label for="start-date">Date:</label>
@@ -115,8 +115,34 @@
     </div>
 </div>
 </div>
+
+<!-- Success Modal -->
+<div id="successModal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h5>Success!</h5>
+        <p>Your appointment has been created successfully.</p>
+        <button onclick="closeModal()">Close</button>
+    </div>
+</div>
+
   </body>
 
+<script>
+    function closeModal() {
+        document.getElementById('successModal').style.display = 'none';
+        location.reload();
+    }
 
+    document.addEventListener('DOMContentLoaded', function() {
+        // Check if there's a success message
+        const successMessage = "{{ session('success') }}"; // Pass the session message
+
+        if (successMessage) {
+            document.getElementById('successModal').style.display = 'block';
+            
+        }
+    });
+</script>
   
 </html>

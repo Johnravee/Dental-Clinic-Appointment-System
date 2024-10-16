@@ -10,9 +10,9 @@
   </head>
   <body>
     <header class="header">
-      <button class="back-button" onclick="window.history.back();">
+      <a class="back-button" href="{{route('dashboard')}}">
         <i class="bi bi-arrow-left"></i> Back
-      </button>
+      </a>
       <h1 class="header-title">Book Appointment</h1>
     </header>
 

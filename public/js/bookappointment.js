@@ -75,7 +75,7 @@
                 const mappedEvents = events.map(event => ({
                  
 
-                    title: `${100 - event.count} slots available`, // Use the correct syntax for objects
+                    title: `${100 - event.count} slots `, // Use the correct syntax for objects
                     start: event.start // Assuming event.start holds the date
                 }));
                       

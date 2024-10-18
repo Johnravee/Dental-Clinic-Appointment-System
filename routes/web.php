@@ -75,4 +75,5 @@ Route::post('/email/verification-notification', function (Request $request) {
 Route::post('/r/login', [LoginAuth::class, 'login'])->name('formlogin');
 Route::post('/r/register', [RegistrationController::class, 'registrationValidator'])->name('register');
 Route::post('/api/createappointment', [AppointmentController::class, 'create'])->name('createappointment');
-Route::get('/api/show-slot', [AppointmentController::class, 'showSlots']);
+Route::get('/api/show-slot/{date}', [AppointmentController::class, 'showSlots']);
+Route::get('/api/user-appointments', [AppointmentController::class, 'userAppointments']);

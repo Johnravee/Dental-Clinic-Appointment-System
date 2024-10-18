@@ -27,6 +27,15 @@ public function create(Request $request)
     }
 
 
+     // Check if the user already has an appointment on the specified date
+    $existingAppointment = Userappointment::where('user_id', $request->user_id)
+        ->where('start', $request->input('start-date'))
+        ->first();
+
+    if ($existingAppointment) {
+        return back()->withErrors(['start-date' => 'You already have an appointment on this date.']);
+    }
+
 
     // Create a new appointment
     $appointment = Userappointment::create([
@@ -55,18 +64,30 @@ public function create(Request $request)
 
 
 //!ito nalang fetching ng slots for specific date
-    public function showSlots(){
-    
-    try{
-         $count = Userappointment::selectRaw('COUNT(*) as count, start')
-        ->groupBy('start')
-        ->get();
+    public function showSlots($date) {
+    try {
+        $count = Userappointment::select(Userappointment::raw('COUNT(start) as count, start'))
+            ->where('start', $date)
+            ->groupBy('start')
+            ->get();
 
         return response()->json($count);
-    }catch (Exception $e){
-
-        return $e->getMessage();
+    } catch (Exception $e) {
+        return response()->json(['error' => $e->getMessage()], 500);
     }
-
 }
+
+
+    
+    public function userAppointments(){
+        try{
+
+            $userId = Auth::user()->id;
+            $existingAppointment = Userappointment::where('user_id', $userId)->get();
+            return response()->json($existingAppointment);
+            
+        }catch(Exception $e){
+            return response()->json(['error'=> $e->getMessage()], 500);
+        }
+    }
 }

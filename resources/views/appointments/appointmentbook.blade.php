@@ -17,6 +17,20 @@
     </header>
 
     <div class="content">
+      <!-- Error Modal -->
+    <div id="errorModal" class="modal" style="display: {{ $errors->any() ? 'block' : 'none' }}">
+      <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h2>Error</h2>
+        <ul>
+          @foreach ($errors->all() as $error)
+              <li style="list-style: none">{{ $error }}</li>
+          @endforeach
+        </ul>
+      </div>
+    </div>
+
+        {{-- Holidays is under maintenance kasi wala pa pong admin application --}}
       <div class="holidays-list">
           <h2 class="holidays-title">HOLIDAYS</h2>
           <ul>
@@ -44,7 +58,7 @@
     <h2 class="instructions-title">INSTRUCTIONS</h2>
     <ul>
       <li>
-        <span style="display:inline-block; width:20px; height:20px; background-color:#DC2C2B; margin-right:5px;"></span>
+        <span style="display:inline-block; width:20px; height:20px; background-color:#f1f1f1; margin-right:5px;"></span>
          Indicates Past
       </li>
       <li>
@@ -65,39 +79,13 @@
 
 
 
-        <div class="right-side">
-          <div class="appoinment-list">
-          <h2 class="appointment-title">SCHEDULED</h2>
-            <table class="appoinments-table">
-              <thead>
-                <tr>
-                  <th>Date</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Alfreds Futterkiste</td>
-                  <td><button><i class="bi bi-pencil-square"></i></button></td>
-                </tr>
-                <tr>
-                  <td>Berglunds snabbköp</td>
-                  <td><button><i class="bi bi-pencil-square"></i></button></td>
-                </tr>
-                <tr>
-                  <td>Centro comercial Moctezuma</td>
-                  <td><button><i class="bi bi-pencil-square"></i></button></td>
-                </tr>
-              </tbody>
-            </table>
-        </div>
-      </div>
-    </div>
+        
 
 
     <div class="book-modal">
     <div class="book-modal-con">
         <h2 class="modal-title">Book Your Appointment</h2>
+        <h3 id="slots-lbl" style="text-align: center"></h3>
         <form action="{{route('createappointment')}}" class="book-form" method="POST">
           @csrf
             <input type="hidden" name="user_id" value="{{Auth::id()}}"/>
@@ -116,21 +104,30 @@
 </div>
 </div>
 
+
 <!-- Success Modal -->
-<div id="successModal" class="modal" style="display: none;">
-    <div class="modal-content">
-        <span class="close" onclick="closeModal()">&times;</span>
+<div id="successModal" class="success-modal" style="display: none;">
+    <div class="success-modal-content">
+        <span class="success-close" onclick="closeModal()">&times;</span>
         <h5>Success!</h5>
         <p>Your appointment has been created successfully.</p>
-        <button onclick="closeModal()">Close</button>
     </div>
 </div>
 
   </body>
 
 <script>
+
+    <!-- Error Messages -->
+    @if ($errors->any())
+
+            document.getElementById('errorModal').style.display = 'block';
+
+    @endif
+
     function closeModal() {
         document.getElementById('successModal').style.display = 'none';
+        
         location.reload();
     }
 

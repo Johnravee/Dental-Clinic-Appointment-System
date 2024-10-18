@@ -25,7 +25,6 @@
                   
                   // Check if the day is in the past
                   if (clickedDate < today) {
-                      info.el.classList.add('past-date'); 
                       info.el.style.pointerEvents = 'none'; 
                   } 
                   
@@ -51,39 +50,47 @@
 
                 try {
                     // Fetch available slots from the API
-                    const response = await fetch(`api/show-slot/${encodeURIComponent(info.dateStr)}`);
-                    const data = await response.json();
+                  const response = await fetch(`/api/show-slot/${startDate.value}`);
 
-                    // Display available slots to the user
-                    if (data.availableSlots > 0) {
-                        alert(`Available slots: ${data.availableSlots}`);
+
+                    const datas = await response.json();
+
+                    if(datas.length === 0){
+                      return document.querySelector('#slots-lbl').textContent = `Available slots: 100`
+                    }
+                    
+                    datas.forEach(data => {
+                         // Display available slots to the user
+                    if (data.count <= 100 && data.count > 0) {
+                            document.querySelector('#slots-lbl').textContent = `Available slots: ${100 - data.count}`
                     } else {
                         alert('No available slots for this date.');
                     }
+                    });
+                   
                 } catch (error) {
                     console.error('Error fetching available slots:', error);
                 }
     }
 },
 
-//! Yung slot pa yah paki isipan ng logic 
-              events: async (fetchInfo, successCallback, failureCallback) => {
-                  try {
-                      const response = await fetch('/api/show-slot');
-                      const events = await response.json();
-                            // Map the events to the correct structure
-                const mappedEvents = events.map(event => ({
-                 
 
-                    title: `${100 - event.count} slots `, // Use the correct syntax for objects
-                    start: event.start // Assuming event.start holds the date
-                }));
-                      
-                      successCallback(mappedEvents);
-                  } catch (error) {
-                      failureCallback(error);
-                  }
-              }
+              events: async (fetchInfo, successCallback, failureCallback) => {
+                        try {
+                    const response = await fetch('/api/user-appointments');
+                    const appointments = await response.json();
+                    const events = appointments.map(appointment => ({
+                        id: appointment.id,
+                        title: `${appointment.status}`,
+                        start: appointment.start,
+                    }));
+
+                    console.log(events);
+                    successCallback(events);
+                } catch (error) {
+                    failureCallback(error);
+                }
+    }
 
           });
           
@@ -101,6 +108,7 @@
               document.querySelector('.book-modal').style.display = 'none'; 
                 startDate.value = null;
                 concern.value = null;
+                document.querySelector('#slots-lbl').textContent = null;
           }
 
       }

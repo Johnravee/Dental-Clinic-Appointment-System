@@ -1,0 +1,113 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary: #3B71CA;
+    --secondary: #6c757d;
+    --success: #5CB85C;
+    --danger: #D9534F;
+    --warning: #F0AD4E;
+    --info: #54B4D3;
+    --light: #FBFBFB;
+    --dark: #292B2C;
+}
+
+.wrapper {
+    height: 100%;
+    width: auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column; /* Stacking layout */
+    margin: 20px;
+}
+
+.appointment-count {
+    text-align: center; /* Center text */
+    padding: 20px;
+    background-color: #e7f1ff; /* Light background for visibility */
+    border-radius: 8px;
+    margin-bottom: 20px; /* Space below the count */
+    width: 100%; /* Full width */
+}
+
+.container {
+    width: 100%;
+    display: flex;
+    flex-direction: row; /* Set to row for two columns */
+    flex-wrap: wrap; /* Allow wrapping to next row */
+    gap: 20px; /* Space between cards */
+}
+
+form {
+    width: calc(50% - 10px); /* Two columns, minus space for gap */
+    margin: 10px 0; /* Vertical margin */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    border-radius: 8px; 
+    background-color: #f9f9f9; 
+    transition: transform 0.3s, box-shadow 0.3s; /* Smooth transition */
+}
+
+form:hover {
+    transform: translateY(-5px); /* Lift effect on hover */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
+}
+
+h1 {
+    color: #333;
+}
+
+.appointment-details {
+    margin-bottom: 20px;
+}
+
+.cancel-btn {
+    background-color: #ff6666;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.cancel-btn:hover {
+    background-color: #ff4d4d;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    background-color: #6cacec;
+    color: white;
+}
+
+.back-button {
+    background: none;
+    border: none;
+    font-size: 1rem;
+    margin-right: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    color: white;
+    text-decoration: none;
+}
+
+.back-button:hover i {
+    transition: transform 0.4s ease; 
+    transform: translateX(-5px); 
+}
+
+.header-title {
+    font-size: 1.5rem;
+    margin: 0;
+}

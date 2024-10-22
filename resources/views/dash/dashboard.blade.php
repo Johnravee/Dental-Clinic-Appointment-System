@@ -64,7 +64,7 @@
                         </button>
                     </a>
 
-                    <a href="userPendingAppointments.php">
+                    <a href="{{route('pending')}}">
                         <button id="midBtn">
                             <i class="bi bi-arrow-clockwise"></i>
                             <span>Pending appointments</span>

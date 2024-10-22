@@ -79,15 +79,32 @@
 
 
         
-        public function userAppointments(){
-            try{
-
+     public function userAppointments() {
+            try {
                 $userId = Auth::user()->id;
-                $existingAppointment = Userappointment::where('user_id', $userId)->get();
-                return response()->json($existingAppointment);
+                $existingAppointments = Userappointment::where('user_id', $userId)->get();
+
+
+                return view('appointments.pendingappointments', [
+                    'appointments' => $existingAppointments,
+                ]);
                 
-            }catch(Exception $e){
-                return response()->json(['error'=> $e->getMessage()], 500);
+            } catch (Exception $e) {
+                return response()->json(['error' => $e->getMessage()], 500);
             }
         }
+
+        public function jsonreqAppointments() {
+            try {
+                $userId = Auth::user()->id;
+                $existingAppointments = Userappointment::where('user_id', $userId)->get();
+
+
+                return response()->json($existingAppointments);
+                
+            } catch (Exception $e) {
+                return response()->json(['error' => $e->getMessage()], 500);
+            }
+        }
+
     }

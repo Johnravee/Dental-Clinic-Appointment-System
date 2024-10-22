@@ -45,6 +45,9 @@ Route::middleware('auth')->group(function () {
         return view('appointments.appointmentbook');
     })->name('book');
 
+    //Get pendings
+    Route::get('/pending', [AppointmentController::class, 'userAppointments'])->name('pending');
+
     // Update user informations
     Route::patch('/user/update', [UserController::class, 'update'])->name('update');
 });
@@ -78,4 +81,4 @@ Route::post('/r/login', [LoginAuthController::class, 'login'])->name('formlogin'
 Route::post('/r/register', [RegistrationController::class, 'registrationValidator'])->name('register');
 Route::post('/api/createappointment', [AppointmentController::class, 'create'])->name('createappointment');
 Route::get('/api/show-slot/{date}', [AppointmentController::class, 'showSlots']);
-Route::get('/api/user-appointments', [AppointmentController::class, 'userAppointments']);
+Route::get('/api/user-appointments', [AppointmentController::class, 'jsonreqAppointments']);

@@ -62,9 +62,7 @@
     }
 
 
-
-    //!ito nalang fetching ng slots for specific date
-        public function showSlots($date) {
+    public function showSlots($date) {
         try {
             $count = Userappointment::select(Userappointment::raw('COUNT(start) as count, start'))
                 ->where('start', $date)
@@ -79,10 +77,52 @@
 
 
         
-     public function userAppointments() {
-            try {
+    //  public function userAppointments() {
+    //         try {
+    //             $userId = Auth::user()->id;
+    //             $existingAppointments = Userappointment::where('user_id', $userId)->get();
+
+
+    //             return view('appointments.pendingappointments', [
+    //                 'appointments' => $existingAppointments,
+    //             ]);
+                
+    //         } catch (Exception $e) {
+    //             return response()->json(['error' => $e->getMessage()], 500);
+    //         }
+    //     }
+
+
+    public function cancel(Request $request){
+       try {
                 $userId = Auth::user()->id;
-                $existingAppointments = Userappointment::where('user_id', $userId)->get();
+                $result = Userappointment::where('user_id', $userId) 
+                ->where('start', $request->input('start'))
+                ->update(['status' => 'Cancelled']);
+
+
+                if($result){
+                    $existingAppointments = Userappointment::where('user_id', $userId)
+                    ->where('status', 'Pending')->get();
+                
+                    return view('appointments.pendingappointments', [
+                    'appointments' => $existingAppointments,
+                ]);
+                }
+
+              
+                
+            } catch (Exception $e) {
+                return response()->json(['error' => $e->getMessage()], 500);
+            }
+    } 
+
+
+    public function pendingAppointments(){
+        try {
+                $userId = Auth::user()->id;
+                $existingAppointments = Userappointment::where('user_id', $userId)
+                ->where('status', 'Pending')->get();
 
 
                 return view('appointments.pendingappointments', [
@@ -92,7 +132,7 @@
             } catch (Exception $e) {
                 return response()->json(['error' => $e->getMessage()], 500);
             }
-        }
+    }
 
         public function jsonreqAppointments() {
             try {

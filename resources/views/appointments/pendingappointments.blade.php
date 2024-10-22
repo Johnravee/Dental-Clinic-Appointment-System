@@ -29,10 +29,11 @@
                 </div>
             @else
                 @foreach($appointments as $appointment)
-                    <form action="" method="post">
+                    <form action="{{route('cancel-appointment')}}" method="post">
                         @csrf
                         <div class="appointment-card">
                             <input type="hidden" value="{{ $appointment->id }}" name="id" />
+                            <input type="hidden" value="{{$appointment->start}}" name="start">
                             <h2 class="appointment-title">{{ $appointment->title }}</h2>
                             <p><strong>Concern:</strong> {{ $appointment->concern }}</p>
                             <p><strong>Date:</strong> {{ \Carbon\Carbon::parse($appointment->start)->format('Y-m-d') }}</p>

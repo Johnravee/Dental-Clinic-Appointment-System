@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\AppointmentController;
+use App\Http\Controllers\GoogleAuthCntroller;
 use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\LoginAuth;
+use App\Http\Controllers\LoginAuthController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
@@ -48,14 +50,14 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/logout', function (Request $request) {
-    Auth::logout(); 
+    Auth::logout();
     $request->session()->invalidate();
-    $request->session()->regenerateToken(); 
-    return redirect()->route('login'); 
+    $request->session()->regenerateToken();
+    return redirect()->route('login');
 })->name('logout');
 
 Route::get('/auth/redirect', [GoogleAuthController::class, 'redirect'])->name('google-auth');
-Route::get('/auth/google/call-back', [GoogleAuthController::class, 'googleCallback']);
+Route::get('/auth/google/callback', [GoogleAuthController::class, 'googleCallback']);
 
 Route::get('/email/verify', function () {
     return view('verifyemail.verify-email');
@@ -64,7 +66,7 @@ Route::get('/email/verify', function () {
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
     $request->fulfill();
     return redirect('/dashboard');
-})->middleware(['auth','signed'])->name('verification.verify');
+})->middleware(['auth', 'signed'])->name('verification.verify');
 
 Route::post('/email/verification-notification', function (Request $request) {
     $request->user()->sendEmailVerificationNotification();
@@ -72,7 +74,7 @@ Route::post('/email/verification-notification', function (Request $request) {
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
 // POST REQUEST
-Route::post('/r/login', [LoginAuth::class, 'login'])->name('formlogin');
+Route::post('/r/login', [LoginAuthController::class, 'login'])->name('formlogin');
 Route::post('/r/register', [RegistrationController::class, 'registrationValidator'])->name('register');
 Route::post('/api/createappointment', [AppointmentController::class, 'create'])->name('createappointment');
 Route::get('/api/show-slot/{date}', [AppointmentController::class, 'showSlots']);

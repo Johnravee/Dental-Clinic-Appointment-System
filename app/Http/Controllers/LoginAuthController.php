@@ -7,7 +7,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 
-class LoginAuth
+class LoginAuthController
 {
     public function login(Request $request){
 

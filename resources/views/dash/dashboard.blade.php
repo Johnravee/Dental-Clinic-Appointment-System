@@ -33,7 +33,7 @@
                     </button>
                 </a>
 
-                <a href="homepage.php">
+                <a href="{{route('homepage')}}">
                     <button type="button">
                         <i class="bi bi-house-door-fill"></i>
                         <span>Homepage</span>
@@ -71,7 +71,7 @@
                         </button>
                     </a>
 
-                    <a href="userAppointmentHistory.php">
+                    <a href="{{route('history')}}">
                         <button id="endBtn">
                             <i class="bi bi-clipboard2"></i>
                             <span>History</span>

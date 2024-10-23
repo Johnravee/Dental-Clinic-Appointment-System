@@ -1,6 +1,8 @@
 <?php
 
     namespace App\Http\Controllers;
+
+    use App\Mail\CancelAppointment;
     use App\Mail\CustomEmail;
     use Illuminate\Support\Facades\Mail;
     use App\Models\Userappointment;
@@ -77,45 +79,55 @@
 
 
         
-    //  public function userAppointments() {
-    //         try {
-    //             $userId = Auth::user()->id;
-    //             $existingAppointments = Userappointment::where('user_id', $userId)->get();
-
-
-    //             return view('appointments.pendingappointments', [
-    //                 'appointments' => $existingAppointments,
-    //             ]);
-                
-    //         } catch (Exception $e) {
-    //             return response()->json(['error' => $e->getMessage()], 500);
-    //         }
-    //     }
-
-
-    public function cancel(Request $request){
-       try {
+     public function userAppointments() {
+            try {
                 $userId = Auth::user()->id;
-                $result = Userappointment::where('user_id', $userId) 
-                ->where('start', $request->input('start'))
-                ->update(['status' => 'Cancelled']);
+                $existingAppointments = Userappointment::where('user_id', $userId)->get()->sortDesc();
 
 
-                if($result){
-                    $existingAppointments = Userappointment::where('user_id', $userId)
-                    ->where('status', 'Pending')->get();
-                
-                    return view('appointments.pendingappointments', [
+                return view('appointments.appointmenthistory', [
                     'appointments' => $existingAppointments,
                 ]);
-                }
-
-              
                 
             } catch (Exception $e) {
                 return response()->json(['error' => $e->getMessage()], 500);
             }
-    } 
+        }
+
+
+    public function cancel(Request $request){
+    try {
+        $user = Auth::user();
+        $result = Userappointment::where('user_id', $user->id) 
+            ->where('start', $request->input('start'))
+            ->update(['status' => 'Cancelled']);
+
+        if ($result) {
+            // Prepare email data
+            $data = [
+                'name' => $user->name,
+                'appointment_date' => $request->input('start'),
+                'status' => 'Cancelled'
+            ];
+
+            // Send email
+            Mail::to($user->email)->send(new CancelAppointment($data));
+
+            // Get existing appointments
+            $existingAppointments = Userappointment::where('user_id', $user->id)
+                ->where('status', 'Pending')->get();
+
+            return view('appointments.pendingappointments', [
+                'appointments' => $existingAppointments,
+            ]);
+        }
+        
+       
+        
+    } catch (Exception $e) {
+        return response()->json(['error' => $e->getMessage()], 500);
+    }
+}
 
 
     public function pendingAppointments(){
@@ -123,7 +135,7 @@
                 $userId = Auth::user()->id;
                 $existingAppointments = Userappointment::where('user_id', $userId)
                 ->where('status', 'Pending')->get();
-
+            
 
                 return view('appointments.pendingappointments', [
                     'appointments' => $existingAppointments,

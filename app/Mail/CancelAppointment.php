@@ -9,15 +9,11 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class CustomEmail extends Mailable
+class CancelAppointment extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $data; 
-
-    /**
-     * Create a new message instance.
-     */
+    public $data;
     public function __construct($data)
     {
         $this->data = $data;
@@ -29,7 +25,7 @@ class CustomEmail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Dental Clinic Booked Appointment Notice',
+            subject: 'Dental Clinic Cancel Appointment Notice',
         );
     }
 
@@ -39,7 +35,7 @@ class CustomEmail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'custom-emails.appointment-book-email', 
+            view: 'custom-emails.appointment-cancel',
         );
     }
 

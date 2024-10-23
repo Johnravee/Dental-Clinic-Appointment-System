@@ -112,52 +112,6 @@ main {
     box-shadow: none;
 }
 
-.ongoing-app,
-.recent-app {
-    width: 100%;
-    height: auto;
-    background-color: #e7e7e7;
-    border-radius: 10px;
-    padding: 10px;
-    margin-bottom: 2rem;
-}
-
-.appointment-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-.appointment-table th {
-    font-weight: bold;
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
-    text-align: left;
-}
-
-.appointment-table td {
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
-}
-
-.appointment-table th,
-.appointment-table td {
-    border-right: 1px solid #ddd;
-}
-
-.appointment-table tr:last-child th,
-.appointment-table tr:last-child td {
-    border-bottom: none;
-}
-
-
-.table-lbl {
-    padding: 10px;
-    font-weight: 500;
-    background-color: rgb(12, 12, 12);
-    border-radius: 10px;
-    color: #e7e7e7;
-    letter-spacing: 1px;
-}
 
 .modal {
             display: none;

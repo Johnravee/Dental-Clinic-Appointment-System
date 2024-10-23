@@ -71,7 +71,7 @@ Route::middleware('auth')->group(function () {
     
     // Google authentication callback
     Route::get('/auth/google/callback', [GoogleAuthController::class, 'googleCallback']);
-
+    
     // Email verification notice view
     Route::get('/email/verify', function () {
         return view('verifyemail.verify-email'); // Show email verification view
@@ -82,6 +82,11 @@ Route::middleware('auth')->group(function () {
         $request->user()->sendEmailVerificationNotification(); // Send verification link
         return back()->with('message', 'Verification link sent!'); // Show message
     })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+    
+    
+    Route::get('/history',[AppointmentController::class, 'userAppointments'])->name('history');
+    
+
 });
 
 // POST REQUESTS
@@ -89,3 +94,8 @@ Route::post('/r/login', [LoginAuthController::class, 'login'])->name('formlogin'
 Route::post('/r/register', [RegistrationController::class, 'registrationValidator'])->name('register'); // Registration submission
 Route::post('/api/createappointment', [AppointmentController::class, 'create'])->name('createappointment'); // Create appointment
 Route::post('/api/cancel-appointment', [AppointmentController::class, 'cancel'])->name('cancel-appointment'); // Cancel appointment
+
+
+Route::get('/', function(){
+    return view('homepage');
+})->name('homepage');

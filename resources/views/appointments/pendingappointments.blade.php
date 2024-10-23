@@ -25,7 +25,6 @@
             @if($appointments->isEmpty())
                 <div class="no-appointments">
                     <p>No pending appointments found.</p>
-                    <p><a href="{{ route('schedule') }}" class="schedule-link">Schedule a new appointment</a></p>
                 </div>
             @else
                 @foreach($appointments as $appointment)
